@@ -12,19 +12,6 @@ int comp = 0;
 int computeSmallest(vector<int> x, int search) {
 	if (x.size() <= 5) {
 		
-		/*for (int i = 0; i < x.size(); i++) {
-			cout << "\n x is : " << x[i];
-		}
-		int smaller;
-		smaller = x[0];
-		cout << "\n aaaaa " << x[0];
-		for (int i = 0; i < x.size() - 1; i++) {
-			if (x[i] <= smaller) {
-				int temp = x[i];
-				smaller = x[i];
-				x[i + 1] = temp;
-			}
-		}*/
 		for(int j = 0; j < x.size() - 1; j++){
 			if (x[j] > x[j + 1]) {
 				int temp = x[j];
@@ -39,16 +26,10 @@ int computeSmallest(vector<int> x, int search) {
 		return(x[search]);
 	}
 
-	//cout << "size is = " << x.size() << "\n";
 	int div = x.size() / 5;
-	int rest = x.size() % 5;
-	//cout << "div is = " << div << "\n";
-	//cout << "rest is = " << rest << "\n";
 
 	int sel = 0;
-	int median = 0;
 	int medianMedian = 0;
-	//int *array = new int(div);
 	vector<int> medianSave;
 	for (int i = 0; i <= div - 1; i++) {
 		for (int j = 0; j < 4; j++) {
@@ -81,7 +62,7 @@ int computeSmallest(vector<int> x, int search) {
 
 	left.push_back(medianMedian);//adds median to left, important
 
-	for (int i = 0; i <= x.size() - 1; i++) {//added - 1 .... :)
+	for (int i = 0; i <= x.size() - 1; i++) {
 		if (x[i] < medianMedian) {
 			left.push_back(x[i]);
 		}
@@ -95,49 +76,33 @@ int computeSmallest(vector<int> x, int search) {
 
 	if (leftCap == search) {
 		comp++;
-		return(medianMedian);//found it
+		return(medianMedian);
 	}
 
 	if (leftCap >= 4) {
-		/*int smallest;
-		smallest = left[0];
-		for (int i = 0; i < left.size() - 1; i++) {
-			if (left[i] < smallest) {
-				smallest = left[i];
-			}
-		}*/
-		//return(left[3]);
 		comp++;
 		return(computeSmallest(left, 3));
 	}
 	else {
-		/*int smallest;
-		smallest = right[0];
-		for (int i = 0; i < right.size() - 1; i++) {
-			if (right[i] < smallest) {
-				smallest = right[i];
-			}
-		}*/
-		//return(right[3 - leftCap]);
 		comp++;
 		return(computeSmallest(right, 3 - leftCap));
 	}
-	//return(0);
 }
 
 
 void main() {
 	vector<int> x;
-	srand(time(0));
-	int size = 12;
-	//rand() % (30 - 4) + 4;
+	x[0] = 3;
+	x[1] = 66;
+	x[2] = 20;
+	//srand(time(0));
+	/*int size = rand() % (10000) + 4;
 	cout << size << "\n";
 	for (int i = 0; i <= size; i++) {
-		int random = size - i;
-		//rand() % (1000 - 100) + 100;
+		int random = rand() % (1000 - 100) + 100;
 		cout << random << "\n";
 		x.push_back(random);
-	}
+	}*/
 	
 	int smol = computeSmallest(x, 3);
 	cout << "\n\nthe 4th smallest number is: " << smol;
