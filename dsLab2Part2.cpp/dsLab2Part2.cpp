@@ -7,9 +7,11 @@
 
 using namespace std;
 using namespace std::chrono;
+int comp = 0;
 
 int computeSmallest(vector<int> x, int search) {
 	if (x.size() <= 5) {
+		
 		/*for (int i = 0; i < x.size(); i++) {
 			cout << "\n x is : " << x[i];
 		}
@@ -30,10 +32,11 @@ int computeSmallest(vector<int> x, int search) {
 				x[j + 1] = temp;
 
 				j = -1;
+				comp++;
 			}
 		}
 
-		return(x[3]);
+		return(x[search]);
 	}
 
 	//cout << "size is = " << x.size() << "\n";
@@ -54,6 +57,7 @@ int computeSmallest(vector<int> x, int search) {
 				x[j + sel] = x[j + sel + 1];
 				x[j + sel + 1] = temp;
 				j = -1;
+				comp++;
 			}
 		}
 		//median 1,2,3.... = x[2 + sel]
@@ -90,6 +94,7 @@ int computeSmallest(vector<int> x, int search) {
 
 
 	if (leftCap == search) {
+		comp++;
 		return(medianMedian);//found it
 	}
 
@@ -102,6 +107,7 @@ int computeSmallest(vector<int> x, int search) {
 			}
 		}*/
 		//return(left[3]);
+		comp++;
 		return(computeSmallest(left, 3));
 	}
 	else {
@@ -113,6 +119,7 @@ int computeSmallest(vector<int> x, int search) {
 			}
 		}*/
 		//return(right[3 - leftCap]);
+		comp++;
 		return(computeSmallest(right, 3 - leftCap));
 	}
 	//return(0);
@@ -122,15 +129,17 @@ int computeSmallest(vector<int> x, int search) {
 void main() {
 	vector<int> x;
 	srand(time(0));
-	int size = rand() % (100 - 4) + 4;
+	int size = 12;
+	//rand() % (30 - 4) + 4;
 	cout << size << "\n";
 	for (int i = 0; i <= size; i++) {
-		int random = rand() % (1000 - 100) + 100;
+		int random = size - i;
+		//rand() % (1000 - 100) + 100;
 		cout << random << "\n";
 		x.push_back(random);
 	}
 	
 	int smol = computeSmallest(x, 3);
 	cout << "\n\nthe 4th smallest number is: " << smol;
-
+	cout << "\n comparisons = " << comp;
 }
